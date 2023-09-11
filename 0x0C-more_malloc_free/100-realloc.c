@@ -1,26 +1,44 @@
 #include "main.h"
-#include <stdlib.h>
+
 
 /**
- * array_range - Main Entry
- * @min: input
- * @max: input
- * Return: 0
- */
-int *array_range(int min, int max)
-{
-	int i, l;
-	int *a;
+* _realloc - reallocates a memory block
+* @ptr: pointer to the memory previously allocated with a call to malloc
+* @old_size: size of ptr
+* @new_size: size of the new memory to be allocated
+*
+* Return: pointer to the address of the new memory block
+*/
 
-	if (min > max)
-		return (NULL);
-	l = max - min + 1;
-	a = malloc(sizeof(int) * l);
-	if (a == NULL)
-		return (NULL);
-	for (i = 0; i < l; i++, min++)
+void *_realloc(void *ptr, unsigned int old_size, unsigned int new_size)
+{
+	void *temp_block;
+	unsigned int i;
+
+	if (ptr == NULL)
 	{
-		a[i] = min;
+		temp_block = malloc(new_size);
+		return (temp_block);
 	}
-	return (a);
+	else if (new_size == old_size)
+		return (ptr);
+
+	else if (new_size == 0 && ptr != NULL)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	else
+	{
+		temp_block = malloc(new_size);
+		if (temp_block != NULL)
+		{
+			for (i = 0; i < min(old_size, new_size); i++)
+				*((char *)temp_block + i) = *((char *) ptr + i);
+			free(ptr);
+			return (temp_block);
+		}
+		else
+			return (NULL);
+	}
 }
