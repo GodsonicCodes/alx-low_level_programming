@@ -1,18 +1,28 @@
-#include <stddef.h> // for NULL definition
+#include <stdio.h>
 #include "function_pointers.h"
 
+/**
+ * int_index - searches for an integer
+ * @array: array to serch through
+ * @size: size of array
+ * @cmp: function used to compare
+ *
+ * Return: first index for which cmp doesn't return 0, or -1
+ */
 int int_index(int *array, int size, int (*cmp)(int))
 {
-    if (array == NULL || cmp == NULL || size <= 0)
-        return -1;
+	int i, r;
 
-    int i;
-
-    for (i = 0; i < size; i++)
-    {
-        if (cmp(array[i]) != 0)
-            return i;
-    }
-
-    return -1;
+	if (size > 0 && array && cmp)
+	{
+		for (i = 0; i < size; i++)
+		{
+			r = cmp(array[i]);
+			if (r)
+				break;
+		}
+		if (i < size)
+			return (i);
+	}
+	return (-1);
 }
