@@ -1,20 +1,22 @@
-#include "lists.h" // Include the necessary header file
+#include "lists.h"
 
 
 /**
- * free_listint - frees a listint_t list
- * @head: pointer to the head of the list
- */
+*free_listint - frees a linked list
+*@head: head of the list
+*
+*Return: void
+*/
+
 
 void free_listint(listint_t *head)
 {
-    listint_t *tmp; // Declare a temporary pointer to hold the next node
+listint_t *temp;
 
-    while (head) // Continue as long as the list is not empty (head is not NULL)
-    {
-        tmp = head->next; // Store the next node in the temporary pointer
-        free(head); // Free the current node
-        head = tmp; // Move the head to the next node (or NULL if end of list)
-    }
+while (head != NULL)
+{
+temp = head;
+head = head->next;
+free(temp);
 }
-
+}
